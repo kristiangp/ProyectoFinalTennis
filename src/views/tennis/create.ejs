@@ -1,0 +1,75 @@
+
+<%- include('../layouts/header',{title:'create new tenni'}); -%>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="form-title">AGREGA UN NUEVO TENNI</h1>
+        </div>
+    </div>
+    <div class="row">
+        <form action="/tennis" method="post" class="row">
+            <div class="col-md-6">
+                <label for="color" class="form-label">Color</label>
+                <input type="text" name="color" id="color" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="talla" class="form-label">Talla</label>
+                <input type="text" name="talla" id="talla" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="tipo" class="form-label">Tipo</label>
+                <input type="text" name="tipo" id="tipo" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="marca" class="form-label">Marca</label>
+                <input type="text" name="marca" id="marca" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="text" name="precio" id="precio" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="disponible" class="form-label">Disponible</label>
+                <input type="text" name="disponible" id="disponible" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="stock" class="form-label">Stock</label>
+                <input type="text" name="stock" id="stock" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="fechaLanzamiento" class="form-label">Fecha Lanzamiento</label>
+                <input type="text" name="fechaLanzamiento" id="fechaLanzamiento" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="isAvailable" class="form-label">Categoría</label>
+                <select type="text" name="isAvailable" id="isAvailable" class="form-select" required>
+                    <option value="Sport">Sport</option>
+                    <option value="Estudio">Estudio</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Informal">Informal</option>
+                    <option value="Elegante">Elegante</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="imageURL" class="form-label">URL de la imagen</label>
+                <input type="text" name="imageURL" id="imageURL" class="form-control" required>
+            </div>
+            <div class="col-12 d-grid mt-4">
+                <button type="submit" class="btn btn-outline-primary">Crear</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-12 d-grid mt-4">
+            <a class="btn btn-primary" href="/tennis" role="button">Ver lista de productos</a>
+        </div>
+    </div>
+</div>
+
+   
+<%- include('../layouts/footer'); -%>

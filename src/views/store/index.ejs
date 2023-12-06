@@ -1,0 +1,120 @@
+<%- include('../layouts/header',{title:'Lista de Productos de Tennis'}); -%>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<link href="/static/css/style.css" rel="stylesheet">
+
+<style>
+    /* Estilos adicionales personalizados si los necesitas */
+    h2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2.5rem;
+            color: #732200; /* Color del texto */
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    .body {
+            background-image: url('../../../static/img/shoes-background.jpg'); /* Ruta de tu imagen de fondo */
+            background-size: cover;
+            background-attachment: fixed;
+            padding-top: 5px; /* Ajuste para la barra de navegación si es necesaria */
+        }    
+    .street-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            background-color: #289fa7;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    .card {
+        transition: transform 0.3s;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 8px;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.1);
+    }
+    .card-img-top {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        max-height: 200px;
+        object-fit: cover;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+    .card-text {
+        color: #555;
+    }
+    .btn-primary {
+        width: 100%;
+    }
+    .elegant-line {
+    border: none;
+    height: 2px;
+    background-image: linear-gradient(to right, transparent, #000, transparent);
+}
+</style>
+
+<hr class="elegant-line">
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="street-title">TENNIS STREET</h1>
+        </div>
+    </div>
+</div>
+
+<hr class="elegant-line">
+
+<body class="body">
+    <div class="container">
+        <% Object.entries(tennis).forEach(([category, products]) => { %>
+            <h2 class="vintage-style"><%= category %></h2>
+            <div class="row">
+                <% products.forEach(product => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <!-- Imagen del producto -->
+                            <img src="<%= product.imageURL %>" class="card-img-top" alt="<%= product.name %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= product.name %></h5>
+                                <p class="card-text">Color: <%= product.color %></p>
+                                <p class="card-text">Talla: <%= product.talla %></p>
+                                <p class="card-text">Tipo: <%= product.tipo %></p>
+                                <p class="card-text">Marca: <%= product.marca %></p>
+                                <!-- Precio del producto -->
+                                <p class="card-text">Precio: <%= product.precio %></p>
+                                <!-- Stock del producto -->
+                                <p class="card-text">Stock: <%= product.stock %></p>
+                                <!-- Fecha de lanzamiento del producto -->
+                                <p class="card-text">Fecha de lanzamiento: <%= product.fechaLanzamiento %></p>
+                                <!-- Botón para añadir al carrito -->
+                                <form action="/store/add-to-cart/<%= product.id %>" method="post">
+                                    <input type="hidden" name="id" value="<%= product.id %>">
+                                    <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% }); %>
+    </div>
+
+    <!-- Agregar el script de Bootstrap al final del body -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

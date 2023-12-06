@@ -1,0 +1,75 @@
+<%- include('../layouts/header', { title: 'books list' }); -%>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="alert alert-success text-center">Lista de Productos</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <% for (let i = 0; i < games.length; i += 3) { %>
+        <div class="row">
+            <% for (let j = i; j < i + 3 && j < games.length; j++) { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="<%= games[j].coverImageUrl %>" class="card-img-top img-fluid mx-auto d-block" alt="<%= games[j].title %>" style="width: 180px; height: 250px; object-fit: cover; margin-top: 10px;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title"><%= games[j].title %></h5>
+                            <p class="card-text">Género: <%= games[j].genre %></p>
+                            <p class="card-text">Plataforma: <%= games[j].compatiblePlatform %></p>
+                            <p class="card-text">Modos de Juego: <%= games[j].gameModes %></p>
+                            <p class="card-text">Precio: <%= games[j].price %></p>
+                            <p class="card-text">Lenguaje: <%= games[j].language %></p>
+                          
+                            <button type="button" class="btn btn-primary btn-add-to-cart" data-game-id="<%= games[j].id %>">Añadir al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    <% } %>
+
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1>Listado de juegos filtrados</h1>
+            <form action="/games" method="get">
+                <label for="author">Filtrar por autor:</label>
+                <input type="text" id="author" name="author">
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/footer'); -%>
+
+<%- include('../layouts/header', { title: 'books list' }); -%>
+
+<!-- ... tu código actual ... -->
+
+<%- include('../layouts/footer'); -%>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addToCartButtons = document.querySelectorAll('.btn-add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const gameId = button.dataset.gameId;
+                try {
+                    const response = await fetch(`/store/add-to-cart/${gameId}`, { method: 'POST' });
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Producto añadido al carrito');
+                    } else {
+                        alert('Error al añadir al carrito');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>

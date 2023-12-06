@@ -1,0 +1,151 @@
+<%- include('../layouts/header',{title:'Lista de Productos de Tennis'}); -%>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    
+.elegant-line {
+    border: none;
+    height: 2px;
+    background-image: linear-gradient(to right, transparent, #000, transparent);
+}
+.street-title {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    background-color: #289fa7;
+    padding: 20px;
+    border-radius: 10px;
+        }
+.custom-bg-color {
+    background-color: #289fa7;
+}
+
+.vintage-form {
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 15px; /* Espaciado interno */
+    border: 2px solid #289fa7; /* Borde */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilos vintage para las etiquetas del formulario */
+.vintage-label {
+    font-family: 'Times New Roman', serif; /* Tipo de fuente */
+    font-size: 18px; /* Tamaño de la fuente */
+    color: #289fa7; /* Color del texto */
+}
+
+/* Estilos vintage para los inputs del formulario */
+.vintage-input {
+    border: 1px solid #289fa7; /* Borde del input */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilos vintage para el botón del formulario */
+.vintage-btn {
+    background-color: #289fa7; /* Color de fondo del botón */
+    border: 1px solid #289fa7; /* Borde del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    font-family: 'Times New Roman', serif; /* Tipo de fuente */
+    font-size: 16px; /* Tamaño de la fuente */
+    color: #fff; /* Color del texto */
+}
+
+/* Estilos adicionales para el formulario */
+.vintage-form input[type="text"] {
+    width: 250px; /* Ancho del input */
+}
+
+</style>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="street-title text-center">Lista de Productos</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form action="/tennis" method="get" class="d-flex align-items-center vintage-form">
+                <label for="search" class="me-2 vintage-label">Buscar por categoría:</label>
+                <input type="text" id="search" name="search" class="form-control me-2 vintage-input">
+                <button type="submit" class="btn btn-primary vintage-btn">Buscar</button>
+            </form>
+        </div>
+    </div>
+    
+
+    <hr class="elegant-line">
+
+    <% Object.keys(tennis).forEach(category => { %>
+        <div class="row">
+            <div class="col-12">
+                <h2><%= category %></h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Talla</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Disponible</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Fecha de Lanzamiento</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">URL de Imagen</th>
+                                <th scope="col">Acciones</th> <!-- Nuevo encabezado para acciones -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% tennis[category].forEach(product => { %>
+                                <tr>
+                                    <th scope="row"><%= product.id %></th>
+                                    <td><%= product.color %></td>
+                                    <td><%= product.talla %></td>
+                                    <td><%= product.tipo %></td>
+                                    <td><%= product.marca %></td>
+                                    <td><%= product.precio %></td>
+                                    <td><%= product.disponible %></td>
+                                    <td><%= product.stock %></td>
+                                    <td><%= product.fechaLanzamiento %></td>
+                                    <td><%= product.isAvailable %></td>
+                                    <td><%= product.imageURL %></td>
+                                    
+                                    <td>
+                                        <!-- Botón para actualizar -->
+                                        <a href="/tennis/edit/<%= product.id %>" class="btn btn-outline-primary btn-sm">Actualizar</a>
+                                        
+                                        <!-- Formulario para eliminar -->
+                                        <form action="/tennis/delete/<%= product.id %>" method="post" onsubmit="return confirm('¿Estás seguro de querer eliminar este producto?')">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+
+    <hr class="elegant-line">
+
+    <div class="row">
+        <div class="col-12 d-grid">
+            <a class="btn btn-secondary" href="/tennis/create" role="button">Ingresar un Nuevo Producto</a>
+        </div>
+    </div>
+    
+</div>
+<%- include('../layouts/footer'); -%>

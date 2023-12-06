@@ -1,0 +1,135 @@
+<%- include('../layouts/header', { title: 'Carrito de Compras' }); -%>
+
+<style>
+    /* Estilos adicionales personalizados */
+    body {
+        background-image: url('../../../static/img/shoes-background.jpg'); /* Ruta de tu imagen de fondo */
+        background-size: cover;
+        background-attachment: fixed;
+        padding-top: 10px; /* Ajuste para la barra de navegación si es necesaria */
+    }
+    /* Estilos para el título del carrito */
+    .cart-title {
+        font-family: 'Arial Black', sans-serif;
+        font-size: 3rem;
+        text-align: center;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        background-color: #289fa7;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: -3%;
+    }
+    /* Estilos para las tarjetas de productos seleccionados y formulario de pedido */
+    .custom-card {
+        transition: transform 0.3s;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    .custom-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.1);
+    }
+    /* Estilos adicionales para list-group y badges */
+    .list-group-item {
+        font-weight: bold;
+        border: none;
+    }
+    .badge {
+        font-size: 0.9rem;
+    }
+    
+    
+    /* Resto de tus estilos */
+    /* ... */
+</style>
+
+<div class="container mt-5">
+    <div class="row titulo">
+        <div class="col-12">
+            <h1 class="cart-title">Carrito de Compras</h1>
+        </div>
+    </div>
+    
+    <!-- Formulario de pedido debajo de la lista de productos -->
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <h5 class="card-title">Formulario de Pedido</h5>
+                    <form action="/store/place-order" method="post" onsubmit="return confirm('¿Estás seguro de realizar este pedido?')">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="documento" class="form-label">Documento</label>
+                                    <input type="text" name="documento" id="documento" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" name="nombre" id="nombre" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="apellido" class="form-label">Apellidos</label>
+                                    <input type="text" name="apellido" id="apellido" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" name="direccion" id="direccion" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="telefono" class="form-label">Teléfono</label>
+                                    <input type="text" name="telefono" id="telefono" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col"></div> <!-- Este div vacío mantiene el espacio para el botón centrado -->
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn btn-success">Realizar Pedido</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <!-- Mostrar productos seleccionados en una tarjeta (mitad izquierda) -->
+        <div class="col-md-6">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Productos Seleccionados</h5>
+                    <ul class="list-group">
+                        <% let total = 0; %>
+                        <% selectedProducts.forEach(product => { %>
+                            <div class="list-group-item d-flex justify-content-between align-items-center text-dark">
+                                <%= product.tipo %>
+                                <span class="badge bg-light text-dark rounded-pill">Precio: $<%= product.precio.toFixed(2) %></span>
+                            </div>
+                            <% total += product.precio; %>
+                        <% }); %>
+                    </ul>
+                    <!-- Mostrar el total de la compra -->
+                    <div class="mt-3">
+                        <h5>Total: $<%= total.toFixed(2) %></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/footer'); -%>
